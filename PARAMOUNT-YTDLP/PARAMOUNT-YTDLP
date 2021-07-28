@@ -185,7 +185,7 @@ read -n 1 -s -r -p "`centerBLINK '_-Press Any Key to Begin Downloading The Episo
 clear
 
 ## Now We Sit Back and Have YT-DLP Download Every Episode We Found From Our TXT File
-yt-dlp -a $EPISODE_URL_LIST -o '%(series)s/Season %(season_number)s/%(series)s - S%(season_number)02dE%(episode_number)02d: %(title)s.%(ext)s'
+yt-dlp --external-downloader aria2c --external-downloader-args -x 16 -K 2M -i $EPISODE_URL_LIST -o '%(series)s/Season %(season_number)s/%(series)s - S%(season_number)02dE%(episode_number)02d: %(title)s.%(ext)s'
 
 
 ## Let's Clean Stuff Up..
