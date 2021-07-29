@@ -23,8 +23,6 @@
 ########################        SED: https://www.gnu.org/software/sed/manual/sed.html         #########################
 ########################               YT-DLP: https://github.com/yt-dlp/yt-dlp               #########################
 ########################                   JQ: https://stedolan.github.io/jq                  #########################
-########################                   Aria2: https://aria2.github.io/                    #########################
-########################                  FFMPEG: https://ffmpeg.org/download.html            #########################
 #######################################################################################################################
 #######################################################################################################################
 ########################                    WARNING: Use wisely and what not..                #########################
@@ -187,7 +185,7 @@ read -n 1 -s -r -p "`centerBLINK '_-Press Any Key to Begin Downloading The Episo
 clear
 
 ## Now We Sit Back and Have YT-DLP Download Every Episode We Found From Our TXT File
-yt-dlp --no-check-certificate --add-metadata --write-thumbnail --embed-thumbnail -o '%(series)s/Season %(season_number)s/%(series)s - S%(season_number)02dE%(episode_number)02d: %(title)s.%(ext)s' --external-downloader aria2c --external-downloader-args "aria2c:-c -j 10 -s 10 -x 10 -k 10M" -a $EPISODE_URL_LIST
+cat $EPISODE_URL_LIST | parallel --jobs 5 yt-dlp --no-check-certificate --add-metadata -o "'%(series)s/Season %(season_number)s/%(series)s - S%(season_number)02dE%(episode_number)02d: %(title)s.%(ext)s'" --external-downloader aria2c {}
 
 
 ## Let's Clean Stuff Up..
